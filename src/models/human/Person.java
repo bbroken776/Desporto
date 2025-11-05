@@ -2,7 +2,7 @@ package models.human;
 
 import java.util.UUID;
 
-public class Person {
+public abstract class Person {
     private UUID id;
     private String name;
     private String bornDate;
