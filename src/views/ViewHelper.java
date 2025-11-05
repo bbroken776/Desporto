@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import javax.swing.JOptionPane;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -56,5 +57,23 @@ public final class ViewHelper {
     public static void runOnUi(Runnable r) {
         if (SwingUtilities.isEventDispatchThread()) r.run();
         else SwingUtilities.invokeLater(r);
+    }
+
+    // Dialog helpers (centralized) — prefer these over direct JOptionPane usage in views
+    public static void showInfo(java.awt.Component parent, String title, String message) {
+        runOnUi(() -> JOptionPane.showMessageDialog(parent, message, title, JOptionPane.INFORMATION_MESSAGE));
+    }
+
+    public static void showError(java.awt.Component parent, String title, String message) {
+        runOnUi(() -> JOptionPane.showMessageDialog(parent, message, title, JOptionPane.ERROR_MESSAGE));
+    }
+
+    // Small validation helper
+    public static boolean validateNotEmpty(java.awt.Component parent, String value, String fieldName) {
+        if (value == null || value.trim().isEmpty()) {
+            showError(parent, "Validation", fieldName + " não pode ser vazio.");
+            return false;
+        }
+        return true;
     }
 }

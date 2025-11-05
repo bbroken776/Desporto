@@ -1,18 +1,20 @@
 package views;
 
+import controller.SystemController;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 /**
- * Common base for all application views.
- * - Use a single MainFrame and swap BaseView subclasses with CardLayout.
- * - Implement initComponents() to build UI.
- * - Override onShow() to refresh data when the view is displayed.
+ * BaseView for all functional panels. Each view receives a SystemController instance
+ * to access business logic. Views should not access data layers directly.
  */
 public abstract class BaseView extends JPanel {
+    protected final SystemController controller;
 
-    public BaseView() {
+    protected BaseView(SystemController controller) {
+        this.controller = controller;
         initialize();
         initComponents();
     }
@@ -29,8 +31,7 @@ public abstract class BaseView extends JPanel {
     protected abstract void initComponents();
 
     /**
-     * Called by the container when this view becomes visible.
-     * Use to refresh data from controllers/cache.
+     * Called by the container when this view becomes visible. Use to refresh data.
      */
     public void onShow() { /* optional override */ }
 
@@ -56,11 +57,11 @@ public abstract class BaseView extends JPanel {
     }
 
     protected void showInfo(String title, String msg) {
-        runOnUiThread(() -> JOptionPane.showMessageDialog(this, msg, title, JOptionPane.INFORMATION_MESSAGE));
+        ViewHelper.showInfo(this, title, msg);
     }
 
     protected void showError(String title, String msg) {
-        runOnUiThread(() -> JOptionPane.showMessageDialog(this, msg, title, JOptionPane.ERROR_MESSAGE));
+        ViewHelper.showError(this, title, msg);
     }
 
     public String viewKey() { return getClass().getSimpleName(); }
