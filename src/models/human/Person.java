@@ -1,4 +1,4 @@
-package models;
+package models.human;
 
 import java.util.UUID;
 
@@ -15,33 +15,14 @@ public class Person {
         this.number = number;
     }
 
-    public UUID getId() {
-        return id;
-    }
+    public UUID getId() { return id; }
+    public String getName() { return name; }
+    public String getBornDate() { return bornDate; }
+    public String getNumber() { return number; }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getBornDate() {
-        return bornDate;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setBornDate(String bornDate) {
-        this.bornDate = bornDate;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
+    public void setName(String name) { this.name = name; }
+    public void setBornDate(String bornDate) { this.bornDate = bornDate; }
+    public void setNumber(String number) { this.number = number; }
 
     @Override
     public String toString() {

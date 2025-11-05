@@ -1,6 +1,8 @@
-package models;
+package models.human;
 
 import java.util.List;
+
+import models.sport.Result;
 
 public class Athlete extends Person{
     private String sport;

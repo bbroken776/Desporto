@@ -1,4 +1,4 @@
-package models;
+package models.human;
 
 public class Coach extends Person {
     private String sport;
