@@ -1,8 +1,10 @@
 package models.sport;
 
 import java.util.List;
+import java.util.UUID;
 
 public class Result {
+    private UUID id;
     private Object participant;
     private int position;
     private double score;
@@ -10,7 +12,8 @@ public class Result {
 
     private List<String> observations;
 
-    public Result(Object participant, int position, double score, boolean moreThanOneParticipant, List<String> observations) {
+    public Result(UUID id, Object participant, int position, double score, boolean moreThanOneParticipant, List<String> observations) {
+        this.id = id;
         this.participant = participant;
         this.position = position;
         this.score = score;
@@ -18,6 +21,7 @@ public class Result {
         this.observations = observations;
     }
 
+    public UUID getId() { return id; }
     public Object getParticipant() { return participant; }
     public int getPosition() { return position; }
     public double getScore() { return score; }
@@ -32,7 +36,6 @@ public class Result {
 
     @Override
     public String toString() {
-        return String.format("Result{participant=%s, position=%d, score=%.2f, moreThanOneParticipant=%b, observations=%s}", 
-                             participant, position, score, moreThanOneParticipant, observations);
+        return String.format("Result{id=%s, participant=%s, position=%d, score=%.2f, moreThanOneParticipant=%b, observations=%s}", id, participant, position, score, moreThanOneParticipant, observations);
     }
 }
