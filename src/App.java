@@ -1,6 +1,7 @@
 import cache.Cache;
 import cache.CacheProvider;
-import views.main.MainView;
+import views.MainView;
+
 import javax.swing.SwingUtilities;
 
 public class App {

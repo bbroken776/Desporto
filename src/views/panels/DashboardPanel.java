@@ -1,4 +1,4 @@
-package views.dashboard;
+package views.panels;
 
 import cache.CacheProvider;
 import models.human.Person;
@@ -22,10 +22,19 @@ public class DashboardPanel extends BaseView {
 
     @Override
     protected void initComponents() {
-        // Title
+        // Title + actions
+        JPanel head = new JPanel(new BorderLayout());
+        head.setOpaque(false);
         JLabel title = ViewHelper.createStyledLabel("Dashboard Principal", 22, true);
         title.setBorder(BorderFactory.createEmptyBorder(12, 12, 18, 12));
-        add(title, BorderLayout.NORTH);
+        head.add(title, BorderLayout.WEST);
+        JPanel actions = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 12));
+        actions.setOpaque(false);
+        actions.add(ViewHelper.createStyledButton("Add Person", ViewConfig.ACCENT, ViewConfig.NAV_FG));
+        actions.add(ViewHelper.createStyledButton("Add Team", ViewConfig.ACCENT, ViewConfig.NAV_FG));
+        actions.add(ViewHelper.createStyledButton("Add Event", ViewConfig.ACCENT, ViewConfig.NAV_FG));
+        head.add(actions, BorderLayout.EAST);
+        add(head, BorderLayout.NORTH);
 
         JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.LEFT, 18, 18));
         wrapper.setOpaque(false);
@@ -57,9 +66,9 @@ public class DashboardPanel extends BaseView {
 
     private void refreshStats() {
         // pull from cache
-    List<Person> persons = CacheProvider.get().getAllPersons();
-    List<Team> teams = CacheProvider.get().getAllTeams();
-    List<Event> events = CacheProvider.get().getAllEvents();
+        List<Person> persons = CacheProvider.get().getAllPersons();
+        List<Team> teams = CacheProvider.get().getAllTeams();
+        List<Event> events = CacheProvider.get().getAllEvents();
 
         personsCount.setText(String.valueOf(persons != null ? persons.size() : 0));
         teamsCount.setText(String.valueOf(teams != null ? teams.size() : 0));

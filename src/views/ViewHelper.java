@@ -126,39 +126,44 @@ public final class ViewHelper {
             }
         });
 
-        tabs.addChangeListener(e -> {
-            int sel = tabs.getSelectedIndex();
-            for (int i = 0; i < tabs.getTabCount(); i++) {
-                Component comp = tabs.getTabComponentAt(i);
-                if (comp instanceof JPanel) {
-                    JPanel p = (JPanel) comp;
-                    // first component is our label
-                    Component c0 = p.getComponentCount() > 0 ? p.getComponent(0) : null;
-                    if (c0 instanceof JLabel) {
-                        JLabel lbl = (JLabel) c0;
-                        if (i == sel) {
-                            p.setOpaque(true);
-                            p.setBackground(ViewConfig.SURFACE);
-                            lbl.setForeground(ViewConfig.TEXT_PRIMARY);
-                            lbl.setFont(new Font(ViewConfig.FONT_FAMILY, Font.BOLD, 14));
-                            // add a small accent underline by setting a bottom border
-                            p.setBorder(BorderFactory.createCompoundBorder(
-                                BorderFactory.createMatteBorder(0,0,3,0, ViewConfig.ACCENT),
-                                BorderFactory.createEmptyBorder(6,12,3,12)
-                            ));
-                        } else {
-                            p.setOpaque(false);
-                            p.setBackground(new Color(0,0,0,0));
-                            lbl.setForeground(ViewConfig.TEXT_SECONDARY);
-                            lbl.setFont(new Font(ViewConfig.FONT_FAMILY, Font.PLAIN, 14));
-                            p.setBorder(BorderFactory.createEmptyBorder(6,12,6,12));
-                        }
+        tabs.addChangeListener(e -> applyTabStyles(tabs));
+        // apply styles once immediately so initial UI matches the styled appearance
+        applyTabStyles(tabs);
+    }
+
+    // Apply styling to each tab header based on which tab is currently selected.
+    private static void applyTabStyles(JTabbedPane tabs) {
+        int sel = tabs.getSelectedIndex();
+        for (int i = 0; i < tabs.getTabCount(); i++) {
+            Component comp = tabs.getTabComponentAt(i);
+            if (comp instanceof JPanel) {
+                JPanel p = (JPanel) comp;
+                // first component is our label
+                Component c0 = p.getComponentCount() > 0 ? p.getComponent(0) : null;
+                if (c0 instanceof JLabel) {
+                    JLabel lbl = (JLabel) c0;
+                    if (i == sel) {
+                        p.setOpaque(true);
+                        p.setBackground(ViewConfig.SURFACE);
+                        lbl.setForeground(ViewConfig.TEXT_PRIMARY);
+                        lbl.setFont(new Font(ViewConfig.FONT_FAMILY, Font.BOLD, 14));
+                        // add a small accent underline by setting a bottom border
+                        p.setBorder(BorderFactory.createCompoundBorder(
+                            BorderFactory.createMatteBorder(0,0,3,0, ViewConfig.ACCENT),
+                            BorderFactory.createEmptyBorder(6,12,3,12)
+                        ));
+                    } else {
+                        p.setOpaque(false);
+                        p.setBackground(new Color(0,0,0,0));
+                        lbl.setForeground(ViewConfig.TEXT_SECONDARY);
+                        lbl.setFont(new Font(ViewConfig.FONT_FAMILY, Font.PLAIN, 14));
+                        p.setBorder(BorderFactory.createEmptyBorder(6,12,6,12));
                     }
                 }
             }
-        });
-        // trigger initial style pass
-        if (tabs.getTabCount() > 0) tabs.setSelectedIndex(tabs.getSelectedIndex() >= 0 ? tabs.getSelectedIndex() : 0);
+        }
+        tabs.revalidate();
+        tabs.repaint();
     }
 
     public static JLabel createStyledLabel(String text, int fontSize, boolean bold) {

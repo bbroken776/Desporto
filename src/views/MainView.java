@@ -1,8 +1,4 @@
-package views.main;
-
-import views.ViewConfig;
-import views.ViewHelper;
-import views.BaseView;
+package views;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,10 +21,10 @@ public class MainView extends JFrame {
         getContentPane().setBackground(ViewConfig.PRIMARY_BG);
 
         // Build tabs
-    views.dashboard.DashboardPanel dash = new views.dashboard.DashboardPanel();
-    views.persons.PersonsPanel persons = new views.persons.PersonsPanel();
-    views.teams.TeamsPanel teams = new views.teams.TeamsPanel();
-    views.events.EventsPanel events = new views.events.EventsPanel();
+    views.panels.DashboardPanel dash = new views.panels.DashboardPanel();
+    views.panels.PersonsPanel persons = new views.panels.PersonsPanel();
+    views.panels.TeamsPanel teams = new views.panels.TeamsPanel();
+    views.panels.EventsPanel events = new views.panels.EventsPanel();
 
     tabs.addTab("Dashboard", dash);
     tabs.addTab("Persons", persons);
